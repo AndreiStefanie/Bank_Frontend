@@ -67,6 +67,10 @@ angular.module('bankApp', [
         {
             return $http.get("http://localhost:8080/api/client/all?employeeID=" + employeeID);
         };
+        
+        factory.getAccounts = function (cnp) {
+            return $http.get("http://localhost:8080/api/account/client?cnp=" + cnp);
+        };
 
         return factory;
     });

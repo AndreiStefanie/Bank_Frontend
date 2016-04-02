@@ -96,8 +96,6 @@ angular.module('bankApp')
 
      function Login(username, password, userType, callback)
      {
-         /* Use this for real authentication
-          ----------------------------------------------*/
          var config = {
              headers:{
                  'Content-Type': 'application/json'
@@ -124,7 +122,7 @@ angular.module('bankApp')
              }
          };
 
-         $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+         $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
          $cookieStore.put('globals', $rootScope.globals);
      }
 

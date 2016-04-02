@@ -45,7 +45,7 @@ angular.module('bankApp.login', [])
             {
                 if (response)
                 {
-                    AuthenticationService.SetCredentials($scope.username, $scope.password, "employee");
+                    AuthenticationService.SetCredentials($scope.username, $scope.password, "employee", response);
                     $location.path('/employee');
                 } else {
                     $scope.dataLoading = false;
