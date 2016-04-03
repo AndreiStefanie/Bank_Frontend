@@ -13,10 +13,10 @@ th, td {
     padding: 15px;
     width: 25%;
 }
-th {
-    color: white;
-    background-color: black;
-}
+/*th {*/
+    /*color: white;*/
+    /*background-color: black;*/
+/*}*/
 
 table td:first-child{
     width: 5%;
@@ -29,6 +29,10 @@ table tr:nth-child(odd)	{
 }
 table tr:nth-child(even) {
     background-color: #ffffff;
+}
+
+h2 {
+    color: white;
 }
 .menu {
   list-style: none;
@@ -76,12 +80,12 @@ table tr:nth-child(even) {
 .table {
     position: absolute;
     left: 20px;
-    top: 20px;
+    top: 10px;
     width: 500px;
 }
 
 .formArea {
-    top: 20px;
+    top: 10px;
     position: absolute;
     height: 320px;
     left: 540px;
@@ -93,7 +97,7 @@ table tr:nth-child(even) {
 .formAreaAccount {
     top: 350px;
     position: absolute;
-    height: 320px;
+    height: 430px;
     left: 540px;
     width: 490px;
     text-align: center;
@@ -106,6 +110,10 @@ table tr:nth-child(even) {
 }
 
 input[type=text] {
+    width: 70%;
+}
+
+input[type=password] {
     width: 70%;
 }
 
@@ -142,3 +150,19 @@ table#accountsTable td:nth-child(2) {
     width: 10%;
 }
 
+.passCheckbox {
+    position: absolute;
+    top: 80px;
+    right: -60px;
+    width: 100px
+}
+
+.formAreaEmployee {
+    top: 10px;
+    position: absolute;
+    height: 440px;
+    left: 540px;
+    width: 490px;
+    text-align: center;
+    background-color: #73d791;
+}

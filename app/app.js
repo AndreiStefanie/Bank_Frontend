@@ -72,5 +72,55 @@ angular.module('bankApp', [
             return $http.get("http://localhost:8080/api/account/client?cnp=" + cnp);
         };
 
+        factory.createClient = function (client, employeeID, config) {
+            return $http.post("http://localhost:8080/api/client/new?employeeID=" + employeeID, client, config);
+        };
+
+        factory.updateClient = function (client, employeeID, config) {
+            return $http.put("http://localhost:8080/api/client/update?employeeID=" + employeeID, client, config);
+        };
+
+        factory.deleteClient = function (cnp, employeeID) {
+            return $http.delete("http://localhost:8080/api/client/remove?cnp=" + cnp + "&employeeID=" + employeeID);
+        };
+
+        factory.createAccount = function (account, employeeID, config) {
+            return $http.post("http://localhost:8080/api/account/new?employeeID=" + employeeID, account, config);
+        };
+
+        factory.updateAccount = function (account, employeeID, config) {
+            return $http.put("http://localhost:8080/api/account/update?employeeID=" + employeeID, account, config);
+        };
+
+        factory.depositAccount = function (account, employeeID, config) {
+            return $http.put("http://localhost:8080/api/account/deposit?employeeID=" + employeeID, account, config);
+        };
+
+        factory.deleteAccount = function (accountID, employeeID) {
+            return $http.delete("http://localhost:8080/api/account/remove?accountID=" + accountID + "&employeeID=" + employeeID);
+        };
+
+        factory.getEmployees = function ()
+        {
+            return $http.get("http://localhost:8080/api/employee/all");
+        };
+
+        factory.getLogOfEmployee = function (employeeID, since, till)
+        {
+            return $http.get("http://localhost:8080/api/log?employeeID=" + employeeID + "&since=" + since + "&till=" + till);
+        };
+
+        factory.createEmployee = function (employee, config) {
+            return $http.post("http://localhost:8080/api/employee/new", employee, config);
+        };
+
+        factory.updateEmployee = function (employee, config) {
+            return $http.put("http://localhost:8080/api/employee/update", employee, config);
+        };
+
+        factory.deleteEmployee = function (employeeID) {
+            return $http.delete("http://localhost:8080/api/employee/remove?employeeID=" + employeeID);
+        };
+
         return factory;
     });

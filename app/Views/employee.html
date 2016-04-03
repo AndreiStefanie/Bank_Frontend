@@ -6,7 +6,7 @@
             <th>CNP</th>
             <th>Address</th>
         </tr>
-        <tr ng-repeat="c in clients" ng-click="showClient(c); getAccounts(c.cnp)">
+        <tr ng-repeat="c in clients | filter:selectedClient.cnp | filter:selectedClient.name" ng-click="showClient(c); getAccounts(c.cnp)">
             <td>{{ c.idclient }}</td>
             <td>{{ c.name }}</td>
             <td>{{ c.cnp }}</td>
@@ -18,24 +18,23 @@
         <form name="form" class="formBody">
             <div class="inputFields">
                 <label for="idClient">ID:</label>
-                <input id="idClient" type="text" required ng-model="selectedClient.idclient" readonly/><br/>
+                <input id="idClient" type="text" ng-model="selectedClient.idclient" readonly/><br/>
                 <label for="nameClient">Name:</label>
                 <input id="nameClient" type="text" required ng-model="selectedClient.name"/><br/>
                 <label for="cnpClient">CNP:</label>
-                <input id="cnpClient" type="text" required ng-model="selectedClient.cnp"/><br/>
+                <input pattern=".{13,13}" title="CNP must contain 13 numeric characters" id="cnpClient" type="text" name="cnpClient" required ng-model="selectedClient.cnp"/><br/>
+                <span ng-show="form.cnpClient.$dirty && form.cnpClient.$error.pattern" class="help-block">CNP must contain 13 numeric characters</span>
                 <label for="addressClient">Address:</label>
                 <input id="addressClient" type="text" required ng-model="selectedClient.address"/><br/>
             </div>
-            <input ng-disabled="form.$invalid || nospam.length" type="submit" ng-click="clearForm()" value="Clear"/>
-            <input ng-disabled="form.$invalid || nospam.length" type="submit" ng-click="insertClient(appointment, selectedEntry)" value="Create"/>
-            <input ng-disabled="form.$invalid || nospam.length" type="submit" ng-click="updateClient(appointment, selectedEntry)" value="Update"/>
-            <input ng-disabled="form.$invalid || nospam.length" type="submit" ng-click="deleteClient(appointment, selectedEntry)" value="Delete"/>
-            <label for="nobots" ng-hide="true">Do not complete {{form.nobots.$dirty}}</label>
-            <input id="nobots" type="email" ng-model="nospam" ng-hide="true"/>
+            <input type="submit" ng-click="clearForm()" value="Clear"/>
+            <input ng-disabled="form.$invalid" type="submit" ng-click="insertClient()" value="Create"/>
+            <input type="submit" ng-click="updateClient()" value="Update"/>
+            <input type="submit" ng-click="deleteClient()" value="Delete"/>
         </form>
     </div>
 
-    <table id="accountsTable" class="table table-condensed table-bordered table-striped">
+    <table id="accountsTable" class="table table-condensed table-bordered table-striped" ng-hide="!accounts.length">
         <tr>
             <th style="width: 10%;">ID</th>
             <th style="width: 10%;">Owner</th>
@@ -53,7 +52,7 @@
     </table>
 
     <div class="formAreaAccount">
-        <form name="form" class="formBody">
+        <form name="formAccount" class="formBody">
             <div class="inputFields">
                 <label for="idAccount">ID:</label>
                 <input id="idAccount" type="text" required ng-model="selectedAccount.idaccount" readonly/><br/>
@@ -66,13 +65,26 @@
                 </select>
                 <label for="balance">Balance:</label>
                 <input id="balance" type="text" required ng-model="selectedAccount.balance"/><br/>
-                <label for="creationDate">Balance:</label>
+                <label for="creationDate">Creation Date:</label>
                 <input id="creationDate" type="text" required ng-model="selectedAccount.formatedDate" readonly/><br/>
             </div>
-            <input ng-disabled="form.$invalid || nospam.length" type="submit" ng-click="clearAccount()" value="Clear"/>
-            <input ng-disabled="form.$invalid || nospam.length" type="submit" ng-click="insertAccount(appointment, selectedEntry)" value="Create"/>
-            <input ng-disabled="form.$invalid || nospam.length" type="submit" ng-click="updateAccount(appointment, selectedEntry)" value="Update"/>
-            <input ng-disabled="form.$invalid || nospam.length" type="submit" ng-click="deleteAccount(appointment, selectedEntry)" value="Delete"/>
+            <input type="submit" ng-click="clearAccount()" value="Clear"/>
+            <input type="submit" ng-click="insertAccount()" value="Create"/>
+            <input type="submit" ng-click="updateAccount()" value="Update"/>
+            <input type="submit" ng-click="deleteAccount()" value="Delete"/>
+        </form>
+        <form name="formTransfer" class="formBody">
+            <div class="inputFields">
+            <label for="idTarget">Transfer to:</label>
+            <select name="targetAccount" id="idTarget" ng-model="targetAccount">
+                <option ng-repeat="option in accounts" value="{{ option.idaccount }}">
+                    {{ option.idaccount }}
+                </option>
+            </select><br/>
+            <label for="transferAmount">Amount:</label>
+            <input id="transferAmount" type="text" required ng-model="transferAmount">
+            </div>
+            <input type="submit" ng-click="transferMoney()" value="Transfer"/>
         </form>
     </div>
 </div>

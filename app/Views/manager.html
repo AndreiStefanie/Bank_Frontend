@@ -1,3 +1,73 @@
-<div>
-    test
+<div class="table">
+    <table id="employeesTable" class="table table-condensed table-bordered table-striped">
+        <tr>
+            <th style="width: 10%;">ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Employed since</th>
+        </tr>
+        <tr ng-repeat="e in employees | filter:selectedEmployee.username | filter:selectedEmployee.name" ng-click="showEmployee(e)">
+            <td>{{ e.idemployee }}</td>
+            <td>{{ e.name }}</td>
+            <td>{{ e.username }}</td>
+            <td>{{ e.employedSince }}</td>
+        </tr>
+    </table>
+
+    <div class="formAreaEmployee">
+        <form name="form" class="formBody">
+            <div class="inputFields">
+                <label for="idEmployee">ID:</label>
+                <input id="idEmployee" type="text" ng-model="selectedEmployee.idemployee" readonly/><br/>
+                <label for="nameEmployee">Name:</label>
+                <input id="nameEmployee" type="text" required ng-model="selectedEmployee.name"/><br/>
+                <label for="username">Username:</label>
+                <input id="username" type="text" required ng-model="selectedEmployee.username"/><br/>
+                <label for="password">Password:</label>
+                <input id="password" type="{{inputType}}" required ng-model="selectedEmployee.password"/>
+                <div class="passCheckbox">
+                    <input type="checkbox" id="checkbox" ng-model="passwordCheckbox" ng-click="hideShowPassword()" />
+                    <label for="checkbox" ng-if="passwordCheckbox">Hide</label>
+                    <label for="checkbox" ng-if="!passwordCheckbox">Show</label><br/>
+                </div>
+                <label for="employedSince">Since:</label>
+                <input id="employedSince" type="text" ng-model="selectedEmployee.employedSince" readonly/><br/>
+                <span ng-show="form.cnpClient.$dirty && form.cnpClient.$error.pattern" class="help-block">CNP must contain 13 numeric characters</span>
+            </div>
+            <input type="submit" ng-click="clearForm()" value="Clear"/>
+            <input ng-disabled="form.$invalid" type="submit" ng-click="insertEmployee()" value="Create"/>
+            <input type="submit" ng-click="updateEmployee()" value="Update"/>
+            <input type="submit" ng-click="deleteEmployee()" value="Delete"/>
+            <div class="inputFields">
+                <label for="sinceYear">Log since(YYYY-MM-DD):</label>
+                <input id="sinceYear" maxlength="4" minlength="4" type="number" ng-model="sinceYear" style="width: 20%" title="Year">
+                <input id="sinceMonth" maxlength="2" minlength="2" max type="number" ng-model="sinceMonth" style="width: 10%" title="Month">
+                <input id="sinceDay" maxlength="2" minlength="2" type="number" ng-model="sinceDay" style="width: 10%" title="Day"><br/>
+                <label for="tillYear">Log till(YYYY-MM-DD):</label>
+                <input id="tillYear" maxlength="4" minlength="4" type="number" ng-model="tillYear" style="width: 20%" title="Year">
+                <input id="tillMonth" maxlength="2" minlength="2" type="number" ng-model="tillMonth" style="width: 10%" title="Month">
+                <input id="tillDay" maxlength="2" minlength="2" type="number" ng-model="tillDay" style="width: 10%" title="Day"><br/>
+            </div>
+            <input ng-disabled="form.$invalid" type="submit" ng-click="getLog()" value="Employee Log"/>
+        </form>
+    </div>
+
+    <table ng-tablescroll id="accountsTable" class="table table-condensed table-bordered table-striped" ng-hide="!logEmployee.length" style="height: 500px">
+        <thead>
+        <tr>
+            <th style="width: 10%;">ID</th>
+            <th style="width: 10%;">Employee</th>
+            <th>Date</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="l in logEmployee">
+            <td>{{ l.idlog }}</td>
+            <td>{{ l.idEmployee }}</td>
+            <td>{{ convertToDate(l.date) }}</td>
+            <td>{{ l.description }}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
