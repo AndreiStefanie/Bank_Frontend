@@ -166,3 +166,9 @@ table#accountsTable td:nth-child(2) {
     text-align: center;
     background-color: #73d791;
 }
+
+.logoutButton {
+    position: absolute;
+    left: -20px;
+    top: -10px;
+}

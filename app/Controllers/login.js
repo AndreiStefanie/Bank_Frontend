@@ -29,14 +29,16 @@ angular.module('bankApp.login', [])
             });
         }
     })
-    .controller('LoginEmployeeCtrl', function($scope, $location, AuthenticationService)
+    .controller('LoginEmployeeCtrl', function($scope, $location, AuthenticationService, $rootScope)
     {
         $scope.username = "";
         $scope.password = "";
         $scope.dataLoading = false;
         $scope.userType = "Employee";
 
-        AuthenticationService.ClearCredentials();
+        if(!$rootScope.globals.currentUser){
+            AuthenticationService.ClearCredentials();
+        }
 
         $scope.login = function ()
         {

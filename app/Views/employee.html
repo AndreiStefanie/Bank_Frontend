@@ -82,9 +82,11 @@
                 </option>
             </select><br/>
             <label for="transferAmount">Amount:</label>
-            <input id="transferAmount" type="text" required ng-model="transferAmount">
+            <input id="transferAmount" type="number" required ng-model="transferAmount"/><br/>
+                <!--<span ng-show="formTransfer.transferAmount.$dirty && formTransfer.transferAmount.$error.pattern" class="help-block">Amount must be a positive number</span>-->
             </div>
-            <input type="submit" ng-click="transferMoney()" value="Transfer"/>
+            <input ng-disabled="formTransfer.$invalid" type="submit" ng-click="transferMoney()" value="Transfer"/>
         </form>
     </div>
+    <button type="button" class="logoutButton" ng-click="logout()">&larr;</button>
 </div>

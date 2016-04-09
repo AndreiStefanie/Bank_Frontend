@@ -57,6 +57,15 @@ angular.module('bankApp', [
             {
                 $location.path('/');
             }
+            //skip login page if already logged in
+            if(loggedIn && $rootScope.globals.currentUser.userType === "employee" && $location.path() === '/loginEmployee')
+            {
+                $location.path('/employee')
+            }
+            if(loggedIn && $rootScope.globals.currentUser.userType === "admin" && $location.path() === '/loginManager')
+            {
+                $location.path('/manager')
+            }
         });
     }])
     .factory('bankFactory', function ($http)

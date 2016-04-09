@@ -3,7 +3,7 @@
  */
 
 angular.module('bankApp.manager', [])
-    .controller('ManagerCtrl', function ($scope, $q, bankFactory)
+    .controller('ManagerCtrl', function ($scope, $q, bankFactory, $location, AuthenticationService)
     {
         $scope.employees = [];
         $scope.selectedEmployee = {};
@@ -111,4 +111,9 @@ angular.module('bankApp.manager', [])
             else
                 $scope.inputType = 'password';
         };
+
+        $scope.logout = function () {
+            $location.path('/');
+            AuthenticationService.ClearCredentials();
+        }
     });

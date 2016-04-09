@@ -5,7 +5,7 @@
 'use strict';
 
 angular.module('bankApp.homepage', [])
-    .controller('HomepageCtrl', function ($scope, $q, $location)
+    .controller('HomepageCtrl', function ($scope, $location)
     {
         $scope.go = function ( path )
         {
